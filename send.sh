@@ -31,6 +31,10 @@ COMMITTER_NAME="$(git log -1 "$CI_COMMIT_SHA" --pretty="%cN")"
 COMMIT_SUBJECT="$(git log -1 "$CI_COMMIT_SHA" --pretty="%s")"
 COMMIT_MESSAGE="$(git log -1 "$CI_COMMIT_SHA" --pretty="%b")" | sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g'
 
+#Read Artifact 
+BATTLE_RESULT=$(<result.log)
+
+echo "$BATTLE_RESULT"
 
 if [ "$AUTHOR_NAME" == "$COMMITTER_NAME" ]; then
   CREDITS="$AUTHOR_NAME authored & committed"
@@ -70,6 +74,11 @@ if [ -z $LINK_ARTIFACT ] || [ $LINK_ARTIFACT = false ] ; then
           "name": "Branch",
           "value": "'"[\`$CI_COMMIT_REF_NAME\`]($CI_PROJECT_URL/tree/$CI_COMMIT_REF_NAME)"'",
           "inline": true
+        },
+        {
+          "name": "Battle Result",
+          "value": "'"$BATTLE_RESULT"'",
+          "inline": false
         }
         ],
         "timestamp": "'"$TIMESTAMP"'"
