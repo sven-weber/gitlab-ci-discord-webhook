@@ -5,12 +5,16 @@ case $1 in
     EMBED_COLOR=3066993
     STATUS_MESSAGE="Passed"
     ARTIFACT_URL="$CI_JOB_URL/artifacts/download"
+    #Read Artifact
+    BATTLE_RESULT=$(head -n 1 result.log)
     ;;
 
   "failure" )
     EMBED_COLOR=15158332
     STATUS_MESSAGE="Failed"
     ARTIFACT_URL="Not available"
+    #Read Artifact
+    BATTLE_RESULT=""
     ;;
 
   * )
@@ -31,8 +35,7 @@ COMMITTER_NAME="$(git log -1 "$CI_COMMIT_SHA" --pretty="%cN")"
 COMMIT_SUBJECT="$(git log -1 "$CI_COMMIT_SHA" --pretty="%s")"
 COMMIT_MESSAGE="$(git log -1 "$CI_COMMIT_SHA" --pretty="%b")" | sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g'
 
-#Read Artifact 
-BATTLE_RESULT=line=$(head -n 1 result.log)
+
 
 if [ "$AUTHOR_NAME" == "$COMMITTER_NAME" ]; then
   CREDITS="$AUTHOR_NAME authored & committed"
