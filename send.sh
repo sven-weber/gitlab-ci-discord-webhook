@@ -5,8 +5,9 @@ case $1 in
     EMBED_COLOR=3066993
     STATUS_MESSAGE="Passed"
     ARTIFACT_URL="$CI_JOB_URL/artifacts/download"
-    #Read Artifact
-    BATTLE_RESULT=$(tail -9 out.log | sed -r '/^\s*$/d' | sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g' | sed -E 's/ /--/g' | sed 's/\r$//')
+    #Read Artifact (last 6 lines, replace windows line endings with unix, remove empty lines, replace space with '--', replace new lines with explicit \n)
+    BATTLE_RESULT=$(tail -6 out.log | tr -d '\015' | sed -r '/^\s*$/d' | sed -E 's/ /--/g' | sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g')
+    echo "$BATTLE_RESULT"
     ;;
 
   "failure" )
