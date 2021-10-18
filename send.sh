@@ -6,7 +6,7 @@ case $1 in
     STATUS_MESSAGE="Passed"
     ARTIFACT_URL="$CI_JOB_URL/artifacts/download"
     #Read Artifact
-    BATTLE_RESULT=$(head -n 1 result.log)
+    BATTLE_RESULT=$(tail -9 out.log | sed -r '/^\s*$/d' | sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g' | sed -E 's/ /--/g' | sed 's/\r$//')
     ;;
 
   "failure" )
