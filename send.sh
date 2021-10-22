@@ -15,7 +15,7 @@ case $1 in
     STATUS_MESSAGE="Failed"
     ARTIFACT_URL="Not available"
     #Read Artifact
-    BATTLE_RESULT=""
+    BATTLE_RESULT="None"
     ;;
 
   * )
@@ -121,6 +121,8 @@ else
 		} ]
 	}'
 fi
+
+echo "$WEBHOOK_DATA"
 
 for ARG in "$@"; do
   echo -e "[Webhook]: Sending webhook to Discord...\\n";
