@@ -111,8 +111,13 @@ else
 				"value": "'"[\`$CI_COMMIT_REF_NAME\`]($CI_PROJECT_URL/tree/$CI_COMMIT_REF_NAME)"'",
 				"inline": true
 			},
+      {
+          "name": "Battle Result",
+          "value": "'"$BATTLE_RESULT"'",
+          "inline": false
+      },
 			{
-				"name": "Artifacts",
+				"name": "Log File",
 				"value": "'"[\`$CI_JOB_ID\`]($ARTIFACT_URL)"'",
 				"inline": true
 			}
